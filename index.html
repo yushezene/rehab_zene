@@ -100,7 +100,7 @@
 <!-- React and Firebase Integration -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-    import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBxXF4PdygVy4hLci-62ug27UkcN0JH59I",
@@ -119,7 +119,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
-        const validToken = 'YOUR_UNIQUE_TOKEN'; // Replace this with your actual token validation logic
+        const validToken = 'zeneSecretToken05'; // Replace this with your actual token validation logic
 
         if (token !== validToken) {
             alert('Unauthorized access.');
