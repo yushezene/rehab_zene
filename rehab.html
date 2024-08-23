@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rehab Center Feedback System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <!-- Header with Website Name -->
+   <header>
+    <h1>Rehab Connect</h1>
+</header>
+
+<div class="nav">
+    <button id="adminPortalButton">Admin Portal</button>
+    <button id="feedbackPortalButton">Feedback Portal</button>
+    <button id="aboutDeveloperB">About Developer</button>
+</div>
+
+<!-- About the Developer Section -->
+<div id="aboutDeveloper" class="portal">
+    <h2>About the Developer</h2>
+    <div class="box">
+        <p>
+            Hi, I'm <strong>Zene Ansari</strong>, the creator of this Rehab Center Feedback System. 
+            I developed this platform to help rehabilitation centers gather valuable feedback 
+            from patients and improve their services. This project incorporates user-friendly 
+            feedback submission, management, and analytics features to enhance the overall experience.
+        </p>
+        <p>
+            If you have any questions or feedback about this project, feel free to contact me. 
+            Thank you for using this system and supporting better healthcare services!
+        </p>
+    </div>
+</div>
+
+<!-- Admin Portal -->
+<div id="adminPortal" class="portal">
+    <h2>Admin Portal</h2>
+    <div class="box">
+        <div class="form">
+            <h3>View Feedback</h3>
+            <button id="viewFeedbackButton" class="sub">View Feedback</button>
+            <div id="feedbackList"></div>
+        </div>
+
+        <div class="form">
+            <h3>Manage Feedback</h3>
+            <select id="feedbackSelect">
+                <option value="">Select Feedback to Delete</option>
+            </select>
+            <button id="deleteFeedbackButton" class="sub" style="background-color: red;">Delete Feedback</button>
+        </div>
+
+        <div class="form">
+            <h3>Feedback Analytics</h3>
+            <div id="feedbackAnalytics"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Feedback Portal -->
+<div id="feedbackPortal" class="portal">
+    <h2>Feedback Portal</h2>
+    <div class="box">
+        <div class="form">
+            <h3>Submit Feedback</h3>
+            <form id="feedbackForm">
+                <div class="inputbox">
+                    <input type="text" id="patientName" placeholder="Your Name (optional)">
+                    <span>Your Name</span>
+                </div>
+                <div class="inputbox">
+                    <textarea id="feedbackMessage" required></textarea>
+                    <span>Your Feedback</span>
+                </div>
+                <div class="inputbox">
+                    <select id="feedbackCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="service">Service</option>
+                        <option value="staff">Staff</option>
+                        <option value="facilities">Facilities</option>
+                    </select>
+                    <span>Category</span>
+                </div>
+                <div class="inputbox">
+                    <label>Rating:</label>
+                    <input type="number" id="feedbackRating" min="1" max="5" required>
+                </div>
+                <div class="inputbox">
+                    <label><input type="checkbox" id="anonymousCheckbox"> Submit Anonymously</label>
+                </div>
+                <input type="submit" value="Submit Feedback" class="sub" id="submitFeedbackButton">
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- React and Firebase Integration -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBxXF4PdygVy4hLci-62ug27UkcN0JH59I",
+        authDomain: "rehab-d0034.firebaseapp.com",
+        projectId: "rehab-d0034",
+        storageBucket: "rehab-d0034.appspot.com",
+        messagingSenderId: "889479890648",
+        appId: "1:889479890648:web:38a68a3551a1f05750f9ad",
+        measurementId: "G-GQ04FHMMF8"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        const validToken = 'YOUR_UNIQUE_TOKEN'; // Replace this with your actual token validation logic
+
+        if (token !== validToken) {
+            alert('Unauthorized access.');
+            document.body.innerHTML = '<h1>Unauthorized Access</h1>';
+            return;
+        }
+
+        function switchPortal(showPortalId) {
+            const portals = ['adminPortal', 'feedbackPortal', 'aboutDeveloper'];
+            portals.forEach(portalId => {
+                const portal = document.getElementById(portalId);
+                portal.style.display = (portalId === showPortalId) ? 'block' : 'none';
+            });
+        }
+
+        document.getElementById("adminPortalButton").addEventListener('click', () => {
+            switchPortal('adminPortal');
+            loadFeedback();
+            loadAnalytics();
+        });
+
+        document.getElementById("feedbackPortalButton").addEventListener('click', () => {
+            switchPortal('feedbackPortal');
+        });
+
+        document.getElementById("aboutDeveloperB").addEventListener('click', () => {
+            switchPortal('aboutDeveloper');
+        });
+
+        document.getElementById("submitFeedbackButton").addEventListener('click', async function(e) {
+            e.preventDefault();
+            const feedbackMessage = document.getElementById("feedbackMessage").value;
+            const feedbackCategory = document.getElementById("feedbackCategory").value;
+            const feedbackRating = parseInt(document.getElementById("feedbackRating").value, 10);
+            const isAnonymous = document.getElementById("anonymousCheckbox").checked;
+            const patientName = isAnonymous ? null : document.getElementById("patientName").value;
+
+            if (!feedbackMessage || !feedbackCategory || !feedbackRating) {
+                alert('Please fill all required fields');
+                return;
+            }
+
+            try {
+                await setDoc(doc(db, 'feedback', new Date().toISOString()), {
+                    message: feedbackMessage,
+                    category: feedbackCategory,
+                    rating: feedbackRating,
+                    timestamp: new Date().toISOString(),
+                    anonymous: isAnonymous,
+                    name: patientName
+                });
+                alert("Feedback submitted successfully!");
+                document.getElementById("feedbackForm").reset();
+            } catch (error) {
+                console.error("Error submitting feedback: ", error);
+            }
+        });
+
+        async function loadFeedback() {
+            const feedbackSelect = document.getElementById("feedbackSelect");
+            const feedbackList = document.getElementById("feedbackList");
+            feedbackSelect.innerHTML = '<option value="">Select Feedback to Delete</option>';
+            feedbackList.innerHTML = '';
+
+            try {
+                const q = query(collection(db, 'feedback'));
+                const querySnapshot = await getDocs(q);
+
+                querySnapshot.forEach((doc) => {
+                    const feedback = doc.data();
+                    let listItem = document.createElement("div");
+                    listItem.textContent = `${feedback.name ? feedback.name + ': ' : 'Anonymous: '}${feedback.message} (${feedback.timestamp}) - Rating: ${feedback.rating} - Category: ${feedback.category}`;
+                    feedbackList.appendChild(listItem);
+
+                    let option = document.createElement("option");
+                    option.value = doc.id;
+                    option.textContent = feedback.message.substring(0, 50) + '...';
+                    feedbackSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Error loading feedback: ", error);
+            }
+        }
+
+        async function loadAnalytics() {
+            const feedbackAnalytics = document.getElementById("feedbackAnalytics");
+
+            try {
+                const q = query(collection(db, 'feedback'));
+                const querySnapshot = await getDocs(q);
+
+                let totalRatings = 0;
+                let count = 0;
+                let categoryCounts = {};
+
+                querySnapshot.forEach((doc) => {
+                    const feedback = doc.data();
+                    totalRatings += feedback.rating;
+                    count++;
+                    categoryCounts[feedback.category] = (categoryCounts[feedback.category] || 0) + 1;
+                });
+
+                let avgRating = count ? (totalRatings / count).toFixed(2) : 0;
+                let categoryHtml = Object.entries(categoryCounts).map(([category, count]) => `<p>${category}: ${count}</p>`).join('');
+
+                feedbackAnalytics.innerHTML = `
+                    <h3>Average Rating: ${avgRating}</h3>
+                    <h3>Category Counts:</h3>
+                    ${categoryHtml}
+                `;
+            } catch (error) {
+                console.error("Error loading analytics: ", error);
+            }
+        }
+
+        document.getElementById("deleteFeedbackButton").addEventListener('click', async function(e) {
+            e.preventDefault();
+            const feedbackId = document.getElementById("feedbackSelect").value;
+
+            if (!feedbackId) {
+                alert('Please select feedback to delete');
+                return;
+            }
+
+            try {
+                await deleteDoc(doc(db, 'feedback', feedbackId));
+                alert("Feedback deleted successfully!");
+                loadFeedback();
+            } catch (error) {
+                console.error("Error deleting feedback: ", error);
+            }
+        });
+    });
+</script>
+</body>
+</html>

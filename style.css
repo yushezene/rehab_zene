@@ -1,0 +1,186 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f0f4f8;
+    color: #333;
+}
+
+h2, h3 {
+    color: #343a40;
+}
+
+/* Header */
+header {
+    background: #007bff; /* Primary Blue */
+    color: #ffffff; /* White */
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+.nav {
+    display: flex;
+    justify-content: center;
+    background: #007bff; /* Primary Blue */
+    padding: 10px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav button {
+    background: #ffffff; /* White */
+    border: none;
+    border-radius: 5px;
+    color: #007bff; /* Primary Blue */
+    font-size: 16px;
+    margin: 0 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.nav button:hover {
+    background: #0056b3; /* Darker Blue */
+    color: #ffffff; /* White */
+}
+
+.portal {
+    display: none;
+    max-width: 900px;
+    margin: 20px auto;
+    background: #ffffff; /* White */
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+}
+
+.form {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.inputbox {
+    margin-bottom: 20px;
+}
+
+.inputbox input[type="text"], .inputbox textarea, .inputbox select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.inputbox input[type="text"]:focus, .inputbox textarea:focus, .inputbox select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.inputbox textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.inputbox input[type="number"] {
+    width: auto;
+    max-width: 120px;
+}
+
+.inputbox label {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.inputbox input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.sub {
+    background: #28a745; /* Green */
+    color: #ffffff; /* White */
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.sub:hover {
+    background: #218838; /* Darker Green */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+#feedbackList div {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background: #ffffff; /* White */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#feedbackList div:last-child {
+    border-bottom: none;
+}
+
+#feedbackList div.anonymous {
+    font-style: italic;
+    color: #6c757d; /* Gray */
+}
+
+#feedbackList div .timestamp {
+    font-size: 0.85em;
+    color: #6c757d; /* Gray */
+}
+
+#feedbackList div .rating {
+    color: #ffc107; /* Yellow */
+}
+
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav button {
+        margin: 5px 0;
+    }
+
+    .portal {
+        padding: 15px;
+    }
+
+    .inputbox input[type="text"], .inputbox textarea, .inputbox select {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .inputbox input[type="text"], .inputbox textarea, .inputbox select {
+        font-size: 12px;
+    }
+
+    .sub {
+        font-size: 14px;
+        padding: 10px 18px;
+    }
+}
