@@ -7,346 +7,300 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header with Website Name -->
-    <header>
-        <h1>Rehab Connect</h1>
-    </header>
+   <!-- Header with Website Name -->
+   <header>
+    <h1>Rehab Connect</h1>
+</header>
 
-    <div class="nav">
-        <button id="adminPortalButton">Admin Portal</button>
-        <button id="feedbackPortalButton">Feedback Portal</button>
-        <button id="aboutDeveloperB">About Developer</button>
+<div class="nav">
+    <button id="adminPortalButton">Admin Portal</button>
+    <button id="feedbackPortalButton">Feedback Portal</button>
+    <button id="aboutDeveloperB">About Developer</button>
+</div>
+
+<!-- About the Developer Section -->
+<div id="aboutDeveloper" class="portal">
+    <h2>About the Developer</h2>
+    <div class="box">
+        <p>
+            Hi, I'm <strong>Zene Ansari</strong>, the creator of this Rehab Center Feedback System. 
+            I developed this platform to help rehabilitation centers gather valuable feedback 
+            from patients and improve their services. This project incorporates user-friendly 
+            feedback submission, management, and analytics features to enhance the overall experience.
+        </p>
+        <p>
+            If you have any questions or feedback about this project, feel free to contact me. 
+            Thank you for using this system and supporting better healthcare services!
+        </p>
     </div>
+</div>
 
-    <!-- About the Developer Section -->
-    <div id="aboutDeveloper" class="portal">
-        <h2>About the Developer</h2>
-        <div class="box">
-            <p>
-                Hi, I'm <strong>Zene Ansari</strong>, the creator of this Rehab Center Feedback System. 
-                I developed this platform to help rehabilitation centers gather valuable feedback 
-                from patients and improve their services. This project incorporates user-friendly 
-                feedback submission, management, and analytics features to enhance the overall experience.
-            </p>
-            <p>
-                If you have any questions or feedback about this project, feel free to contact me. 
-                Thank you for using this system and supporting better healthcare services!
-            </p>
+<!-- Admin Portal -->
+<div id="adminPortal" class="portal">
+    <h2>Admin Portal</h2>
+    <div class="box">
+        <div class="form">
+            <h3>Enter Rehab Name to View Data</h3>
+            <input type="text" id="adminRehabName" placeholder="Enter Rehab Name" required>
+            <button id="loadRehabDataButton" class="sub">Load Data</button>
+        </div>
+        <div class="form">
+            <h3>View Feedback</h3>
+            <button id="viewFeedbackButton" class="sub">View Feedback</button>
+            <div id="feedbackList"></div>
+        </div>
+
+        <div class="form">
+            <h3>Manage Feedback</h3>
+            <select id="feedbackSelect">
+                <option value="">Select Feedback to Delete</option>
+            </select>
+            <button id="deleteFeedbackButton" class="sub" style="background-color: red;">Delete Feedback</button>
+        </div>
+
+        <div class="form">
+            <h3>Feedback Analytics</h3>
+            <div id="feedbackAnalytics"></div>
         </div>
     </div>
+</div>
 
-    <!-- Admin Portal -->
-    <div id="adminPortal" class="portal">
-        <h2>Admin Portal</h2>
-        <div class="box">
-            <div class="form">
-                <h3>Enter Rehab Name to View Data</h3>
-                <input type="text" id="adminRehabName" placeholder="Enter Rehab Name" required>
-                <button id="loadRehabDataButton" class="sub">Load Data</button>
-            </div>
-            <div class="form">
-                <h3>View Feedback</h3>
-                <button id="viewFeedbackButton" class="sub">View Feedback</button>
-                <div id="feedbackList"></div>
-            </div>
 
-            <div class="form">
-                <h3>Manage Feedback</h3>
-                <select id="feedbackSelect">
-                    <option value="">Select Feedback to Delete</option>
-                </select>
-                <button id="deleteFeedbackButton" class="sub" style="background-color: red;">Delete Feedback</button>
-            </div>
-
-            <div class="form">
-                <h3>Feedback Analytics</h3>
-                <div id="feedbackAnalytics"></div>
-            </div>
+<!-- Feedback Portal -->
+<div id="feedbackPortal" class="portal">
+    <h2>Feedback Portal</h2>
+    <div class="box">
+        <div class="form">
+            <h3>Submit Feedback</h3>
+            <form id="feedbackForm">
+                <div class="inputbox">
+                    <input type="text" id="rehabName" placeholder="Rehab Name" required>
+                    <span>Rehab Name</span>
+                </div>
+                <div class="inputbox">
+                    <input type="text" id="patientName" placeholder="Your Name (optional)">
+                    <span>Your Name</span>
+                </div>
+                <div class="inputbox">
+                    <textarea id="feedbackMessage" required></textarea>
+                    <span>Your Feedback</span>
+                </div>
+                <div class="inputbox">
+                    <select id="feedbackCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="service">Service</option>
+                        <option value="staff">Staff</option>
+                        <option value="facilities">Facilities</option>
+                    </select>
+                    <span>Category</span>
+                </div>
+                <div class="inputbox">
+                    <label>Rating:</label>
+                    <input type="number" id="feedbackRating" min="1" max="5" required>
+                </div>
+                <div class="inputbox">
+                    <label><input type="checkbox" id="anonymousCheckbox"> Submit Anonymously</label>
+                </div>
+                <input type="submit" value="Submit Feedback" class="sub" id="submitFeedbackButton">
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- Feedback Portal -->
-    <div id="feedbackPortal" class="portal">
-        <h2>Feedback Portal</h2>
-        <div class="box">
-            <div class="form">
-                <h3>Submit Feedback</h3>
-                <form id="feedbackForm">
-                    <div class="inputbox">
-                        <input type="text" id="rehabName" placeholder="Rehab Name" required>
-                        <span>Rehab Name</span>
-                    </div>
-                    <div class="inputbox">
-                        <input type="text" id="patientName" placeholder="Your Name (optional)">
-                        <span>Your Name</span>
-                    </div>
-                    <div class="inputbox">
-                        <textarea id="feedbackMessage" required></textarea>
-                        <span>Your Feedback</span>
-                    </div>
-                    <div class="inputbox">
-                        <select id="feedbackCategory" required>
-                            <option value="">Select Category</option>
-                            <option value="service">Service</option>
-                            <option value="staff">Staff</option>
-                            <option value="facilities">Facilities</option>
-                        </select>
-                        <span>Category</span>
-                    </div>
-                    <div class="inputbox">
-                        <label>Rating:</label>
-                        <input type="number" id="feedbackRating" min="1" max="5" required>
-                    </div>
-                    <div class="inputbox">
-                        <label><input type="checkbox" id="anonymousCheckbox"> Submit Anonymously</label>
-                    </div>
-                    
-                    <!-- Family Member Feedback Option -->
-                    <div class="inputbox">
-                        <label>
-                            <input type="checkbox" id="isFamilyMemberCheckbox"> I am a family member giving feedback on behalf of the patient
-                        </label>
-                    </div>
+<!-- React and Firebase Integration -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
 
-                    <!-- Family Member Feedback Section -->
-                    <div id="familyMemberFeedbackSection" style="display: none;">
-                        <div class="inputbox">
-                            <label>Rate the overall care:</label>
-                            <input type="number" id="familyRating" min="1" max="5">
-                        </div>
-                        <div class="inputbox">
-                            <label>How satisfied were you with the staff's communication?</label>
-                            <select id="staffCommunication">
-                                <option value="">Select</option>
-                                <option value="very_satisfied">Very Satisfied</option>
-                                <option value="satisfied">Satisfied</option>
-                                <option value="neutral">Neutral</option>
-                                <option value="unsatisfied">Unsatisfied</option>
-                                <option value="very_unsatisfied">Very Unsatisfied</option>
-                            </select>
-                        </div>
-                        <div class="inputbox">
-                            <label>How clean and comfortable were the facilities?</label>
-                            <select id="facilityComfort">
-                                <option value="">Select</option>
-                                <option value="very_comfortable">Very Comfortable</option>
-                                <option value="comfortable">Comfortable</option>
-                                <option value="neutral">Neutral</option>
-                                <option value="uncomfortable">Uncomfortable</option>
-                                <option value="very_uncomfortable">Very Uncomfortable</option>
-                            </select>
-                        </div>
-                    </div>
+    const firebaseConfig = {
+        apiKey: "AIzaSyBxXF4PdygVy4hLci-62ug27UkcN0JH59I",
+        authDomain: "rehab-d0034.firebaseapp.com",
+        projectId: "rehab-d0034",
+        storageBucket: "rehab-d0034.appspot.com",
+        messagingSenderId: "889479890648",
+        appId: "1:889479890648:web:38a68a3551a1f05750f9ad",
+        measurementId: "G-GQ04FHMMF8"
+    };
 
-                    <input type="submit" value="Submit Feedback" class="sub" id="submitFeedbackButton">
-                </form>
-            </div>
-        </div>
-    </div>
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-    <!-- React and Firebase Integration -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
-        import { load } from 'https://www.gstatic.com/charts/loader.js';
+ 
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBxXF4PdygVy4hLci-62ug27UkcN0JH59I",
-            authDomain: "rehab-d0034.firebaseapp.com",
-            projectId: "rehab-d0034",
-            storageBucket: "rehab-d0034.appspot.com",
-            messagingSenderId: "889479890648",
-            appId: "1:889479890648:web:38a68a3551a1f05750f9ad",
-            measurementId: "G-GQ04FHMMF8"
-        };
+   
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const token = urlParams.get('token');
-            /*const validToken = 'zeneSecretToken05';
-            if (token !== validToken) {
-                alert('Unauthorized access.');
-                document.body.innerHTML = '<h1>Unauthorized Access</h1>';
-                return;
-            }
-*/
-            function switchPortal(showPortalId) {
-                const portals = ['adminPortal', 'feedbackPortal', 'aboutDeveloper'];
-                portals.forEach(portalId => {
-                    const portal = document.getElementById(portalId);
-                    portal.style.display = (portalId === showPortalId) ? 'block' : 'none';
-                });
-            }
-
-            // Event Listeners to switch between portals
-            document.getElementById("adminPortalButton").addEventListener('click', () => {
-                switchPortal('adminPortal');
-            });
-
-            document.getElementById("feedbackPortalButton").addEventListener('click', () => {
-                switchPortal('feedbackPortal');
-            });
-
-            document.getElementById("aboutDeveloperB").addEventListener('click', () => {
-                switchPortal('aboutDeveloper');
-            });
-
-            // Load rehab data and analytics
-            document.getElementById("loadRehabDataButton").addEventListener('click', () => {
-                loadFeedback();
-                loadAnalytics();
-            });
-
-            // Toggle visibility of family member feedback section
-            document.getElementById("isFamilyMemberCheckbox").addEventListener('change', function () {
-                const familySection = document.getElementById("familyMemberFeedbackSection");
-                familySection.style.display = this.checked ? 'block' : 'none';
-            });
-
-            // Submit feedback
-            document.getElementById("feedbackForm").addEventListener('submit', async function (e) {
-                e.preventDefault(); // Prevent the form from submitting the traditional way
-
-                // Retrieve input values
-                const rehabName = document.getElementById("rehabName").value.trim();
-                const patientName = document.getElementById("patientName").value.trim();
-                const feedbackMessage = document.getElementById("feedbackMessage").value.trim();
-                const feedbackCategory = document.getElementById("feedbackCategory").value.trim();
-                const feedbackRating = document.getElementById("feedbackRating").value.trim();
-                const anonymous = document.getElementById("anonymousCheckbox").checked;
-
-                // Family member feedback details
-                const isFamilyMember = document.getElementById("isFamilyMemberCheckbox").checked;
-                const familyRating = isFamilyMember ? document.getElementById("familyRating").value.trim() : null;
-                const staffCommunication = isFamilyMember ? document.getElementById("staffCommunication").value.trim() : null;
-                const facilityComfort = isFamilyMember ? document.getElementById("facilityComfort").value.trim() : null;
-
-                const feedbackData = {
-                    rehabName,
-                    patientName: anonymous ? 'Anonymous' : patientName,
-                    feedbackMessage,
-                    feedbackCategory,
-                    feedbackRating,
-                    isFamilyMember,
-                    familyRating: isFamilyMember ? familyRating : null,
-                    staffCommunication: isFamilyMember ? staffCommunication : null,
-                    facilityComfort: isFamilyMember ? facilityComfort : null,
-                    timestamp: new Date().toISOString()
-                };
-
-                // Save feedback to Firestore
-                const feedbackRef = doc(collection(db, 'feedbacks'));
-                await setDoc(feedbackRef, feedbackData);
-
-                // Reset form
-                document.getElementById("feedbackForm").reset();
-                document.getElementById("familyMemberFeedbackSection").style.display = 'none';
-
-                alert("Feedback submitted successfully.");
-            });
-
-            // Load feedback data
-            async function loadFeedback() {
-                const rehabName = document.getElementById("adminRehabName").value.trim();
-                const feedbackList = document.getElementById("feedbackList");
-                const feedbackSelect = document.getElementById("feedbackSelect");
-
-                feedbackList.innerHTML = '';
-                feedbackSelect.innerHTML = '<option value="">Select Feedback to Delete</option>';
-
-                const feedbackQuery = query(collection(db, 'feedbacks'), where("rehabName", "==", rehabName));
-                const feedbackSnapshot = await getDocs(feedbackQuery);
-
-                if (feedbackSnapshot.empty) {
-                    feedbackList.innerHTML = 'No feedback available for the selected rehab center.';
-                    return;
-                }
-
-                feedbackSnapshot.forEach((doc) => {
-                    const feedbackData = doc.data();
-                    const feedbackItem = document.createElement('div');
-                    feedbackItem.classList.add('feedback-item');
-
-                    feedbackItem.innerHTML = `
-                        <p><strong>Name:</strong> ${feedbackData.patientName}</p>
-                        <p><strong>Feedback:</strong> ${feedbackData.feedbackMessage}</p>
-                        <p><strong>Category:</strong> ${feedbackData.feedbackCategory}</p>
-                        <p><strong>Rating:</strong> ${feedbackData.feedbackRating}</p>
-                        ${feedbackData.isFamilyMember ? `
-                            <p><strong>Family Member Feedback:</strong></p>
-                            <p><strong>Care Rating:</strong> ${feedbackData.familyRating}</p>
-                            <p><strong>Staff Communication:</strong> ${feedbackData.staffCommunication}</p>
-                            <p><strong>Facility Comfort:</strong> ${feedbackData.facilityComfort}</p>
-                        ` : ''}
-                        <p><strong>Timestamp:</strong> ${new Date(feedbackData.timestamp).toLocaleString()}</p>
-                    `;
-
-                    feedbackList.appendChild(feedbackItem);
-
-                    const option = document.createElement('option');
-                    option.value = doc.id;
-                    option.textContent = `${feedbackData.patientName} - ${new Date(feedbackData.timestamp).toLocaleString()}`;
-                    feedbackSelect.appendChild(option);
-                });
-            }
-
-            // Delete feedback
-            document.getElementById("deleteFeedbackButton").addEventListener('click', async () => {
-                const feedbackId = document.getElementById("feedbackSelect").value;
-
-                if (!feedbackId) {
-                    alert('Please select feedback to delete.');
-                    return;
-                }
-
-                await deleteDoc(doc(db, 'feedbacks', feedbackId));
-                alert('Feedback deleted successfully.');
-
-                // Reload feedback list and analytics
-                loadFeedback();
-                loadAnalytics();
-            });
-
-            // Load feedback analytics
-            async function loadAnalytics() {
-                const rehabName = document.getElementById("adminRehabName").value.trim();
-                const feedbackQuery = query(collection(db, 'feedbacks'), where("rehabName", "==", rehabName));
-                const feedbackSnapshot = await getDocs(feedbackQuery);
-
-                const analyticsData = {
-                    totalFeedback: 0,
-                    totalRating: 0,
-                    categoryCounts: {
-                        service: 0,
-                        staff: 0,
-                        facilities: 0
-                    }
-                };
-
-                feedbackSnapshot.forEach((doc) => {
-                    const feedbackData = doc.data();
-                    analyticsData.totalFeedback += 1;
-                    analyticsData.totalRating += parseInt(feedbackData.feedbackRating, 10);
-                    analyticsData.categoryCounts[feedbackData.feedbackCategory] += 1;
-                });
-
-                const averageRating = (analyticsData.totalFeedback > 0) ? (analyticsData.totalRating / analyticsData.totalFeedback).toFixed(2) : 'N/A';
-
-                const feedbackAnalytics = document.getElementById('feedbackAnalytics');
-                feedbackAnalytics.innerHTML = `
-                    <p><strong>Total Feedback:</strong> ${analyticsData.totalFeedback}</p>
-                    <p><strong>Average Rating:</strong> ${averageRating}</p>
-                    <p><strong>Category Breakdown:</strong></p>
-                    <p>Service: ${analyticsData.categoryCounts.service}</p>
-                    <p>Staff: ${analyticsData.categoryCounts.staff}</p>
-                    <p>Facilities: ${analyticsData.categoryCounts.facilities}</p>
-                `;
-            }
+    document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const validToken = 'zeneSecretToken05';
+ if (token !== validToken) {
+        alert('Unauthorized access.');
+        document.body.innerHTML = '<h1>Unauthorized Access</h1>';
+        return;
+    }
+    function switchPortal(showPortalId) {
+        const portals = ['adminPortal', 'feedbackPortal', 'aboutDeveloper'];
+        portals.forEach(portalId => {
+            const portal = document.getElementById(portalId);
+            portal.style.display = (portalId === showPortalId) ? 'block' : 'none';
         });
-    </script>
+    }
+
+    // Event Listeners to switch between portals
+    document.getElementById("adminPortalButton").addEventListener('click', () => {
+        switchPortal('adminPortal');
+    });
+
+    document.getElementById("feedbackPortalButton").addEventListener('click', () => {
+        switchPortal('feedbackPortal');
+    });
+
+    document.getElementById("aboutDeveloperB").addEventListener('click', () => {
+        switchPortal('aboutDeveloper');
+    });
+
+    // Load rehab data and analytics
+    document.getElementById("loadRehabDataButton").addEventListener('click', () => {
+        loadFeedback();
+        loadAnalytics();
+    });
+
+    // Submit feedback
+    
+       document.getElementById("feedbackForm").addEventListener('submit', async function (e) {
+    e.preventDefault(); // Prevent the form from submitting the traditional way
+
+    // Retrieve input values
+    const rehabName = document.getElementById("rehabName").value.trim();
+    const patientName = document.getElementById("patientName").value.trim();
+    const feedbackMessage = document.getElementById("feedbackMessage").value.trim();
+    const feedbackCategory = document.getElementById("feedbackCategory").value;
+    const feedbackRating = parseInt(document.getElementById("feedbackRating").value);
+    const anonymous = document.getElementById("anonymousCheckbox").checked;
+
+    // Check if the required fields are filled
+    if (!rehabName || !feedbackMessage || !feedbackCategory || isNaN(feedbackRating)) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    // Prepare feedback data
+    const feedbackData = {
+        name: anonymous ? "Anonymous" : patientName || "Anonymous", // Default to "Anonymous" if no name provided
+        message: feedbackMessage,
+        category: feedbackCategory,
+        rating: feedbackRating,
+        timestamp: new Date().toISOString() // Store the current date and time as a string
+    };
+
+    try {
+        // Save feedback data to Firestore under a collection named 'feedback_{rehabName}'
+        await setDoc(doc(collection(db, `feedback_${rehabName}`)), feedbackData);
+        alert("Feedback submitted successfully!");
+
+        // Clear the form after successful submission
+        document.getElementById("feedbackForm").reset();
+    } catch (error) {
+        console.error("Error submitting feedback: ", error);
+        alert("Error submitting feedback. Please try again.");
+    }
+});
+
+    });
+
+    // Function to load all feedback for a given rehab name
+    async function loadFeedback() {
+        const feedbackSelect = document.getElementById("feedbackSelect");
+        const feedbackList = document.getElementById("feedbackList");
+        const rehabName = document.getElementById("adminRehabName").value.trim(); // Get rehab name from the input field
+        feedbackSelect.innerHTML = '<option value="">Select Feedback to Delete</option>';
+        feedbackList.innerHTML = '';
+
+        if (!rehabName) {
+            alert('Please enter a rehab name to load feedback');
+            return;
+        }
+
+        try {
+            const q = query(collection(db, `feedback_${rehabName}`));
+            const querySnapshot = await getDocs(q);
+
+            querySnapshot.forEach((doc) => {
+                const feedback = doc.data();
+                let listItem = document.createElement("div");
+                listItem.textContent = `${feedback.name ? feedback.name + ': ' : 'Anonymous: '}${feedback.message} (${feedback.timestamp}) - Rating: ${feedback.rating} - Category: ${feedback.category}`;
+                feedbackList.appendChild(listItem);
+
+                let option = document.createElement("option");
+                option.value = doc.id;
+                option.textContent = feedback.message.substring(0, 50) + '...';
+                feedbackSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Error loading feedback: ", error);
+        }
+    }
+
+    // Function to load analytics data
+    async function loadAnalytics() {
+        const feedbackAnalytics = document.getElementById("feedbackAnalytics");
+        const rehabName = document.getElementById("adminRehabName").value.trim();
+
+        if (!rehabName) {
+            alert('Please enter a rehab name to load analytics');
+            return;
+        }
+
+        try {
+            const q = query(collection(db, `feedback_${rehabName}`));
+            const querySnapshot = await getDocs(q);
+
+            let totalRatings = 0;
+            let count = 0;
+            let categoryCounts = {};
+
+            querySnapshot.forEach((doc) => {
+                const feedback = doc.data();
+                totalRatings += feedback.rating;
+                count++;
+                categoryCounts[feedback.category] = (categoryCounts[feedback.category] || 0) + 1;
+            });
+
+            let avgRating = count ? (totalRatings / count).toFixed(2) : 0;
+            let categoryHtml = Object.entries(categoryCounts).map(([category, count]) => `<p>${category}: ${count}</p>`).join('');
+
+            feedbackAnalytics.innerHTML = `
+                <h3>Average Rating: ${avgRating}</h3>
+                <h3>Category Counts:</h3>
+                ${categoryHtml}
+            `;
+        } catch (error) {
+            console.error("Error loading analytics: ", error);
+        }
+    }
+
+    // Deleting feedback
+    document.getElementById("deleteFeedbackButton").addEventListener('click', async function (e) {
+        e.preventDefault();
+        const feedbackId = document.getElementById("feedbackSelect").value;
+        const rehabName = document.getElementById("adminRehabName").value.trim();
+
+        if (!feedbackId || !rehabName) {
+            alert('Please select feedback to delete and enter a rehab name');
+            return;
+        }
+
+        try {
+            await deleteDoc(doc(db, `feedback_${rehabName}`, feedbackId));
+            alert("Feedback deleted successfully!");
+            loadFeedback();
+        } catch (error) {
+            console.error("Error deleting feedback: ", error);
+        }
+    });
+
+
+</script>
 </body>
 </html>
