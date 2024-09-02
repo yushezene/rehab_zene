@@ -102,11 +102,6 @@
                 <div class="inputbox">
                     <label><input type="checkbox" id="anonymousCheckbox"> Submit Anonymously</label>
                 </div>
-                <!-- File upload for photos/videos -->
-                <div class="inputbox">
-                    <label for="feedbackFile">Upload Photo/Video (optional):</label>
-                    <input type="file" id="feedbackFile" accept="image/*,video/*">
-                </div>
                 <input type="submit" value="Submit Feedback" class="sub" id="submitFeedbackButton">
             </form>
         </div>
@@ -117,7 +112,6 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
     import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
-    import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-storage.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBxXF4PdygVy4hLci-62ug27UkcN0JH59I",
@@ -132,7 +126,6 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const storage = getStorage(app);
 
     document.addEventListener('DOMContentLoaded', () => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -182,7 +175,6 @@
             const feedbackCategory = document.getElementById("feedbackCategory").value;
             const feedbackRating = parseInt(document.getElementById("feedbackRating").value);
             const anonymous = document.getElementById("anonymousCheckbox").checked;
-            const feedbackFile = document.getElementById("feedbackFile").files[0];
 
             // Check if the required fields are filled
             if (!rehabName || !feedbackMessage || !feedbackCategory || isNaN(feedbackRating)) {
@@ -196,18 +188,11 @@
                 message: feedbackMessage,
                 category: feedbackCategory,
                 rating: feedbackRating,
-                timestamp: new Date().toISOString(), // Store the current date and time as a string
-                fileUrl: "" // Initialize file URL
+                timestamp: new Date().toISOString() // Store the current date and time as a string
             };
 
             try {
                 // Save feedback data to Firestore under a collection named 'feedback_{rehabName}'
-                if (feedbackFile) {
-                    const fileRef = ref(storage, `feedback_files/${rehabName}/${feedbackFile.name}`);
-                    await uploadBytes(fileRef, feedbackFile);
-                    const fileUrl = await getDownloadURL(fileRef);
-                    feedbackData.fileUrl = fileUrl;
-                }
                 await setDoc(doc(collection(db, `feedback_${rehabName}`)), feedbackData);
                 alert("Feedback submitted successfully!");
 
@@ -243,7 +228,6 @@
                 listItem.innerHTML = `
                     ${feedback.name ? feedback.name + ': ' : 'Anonymous: '} ${feedback.message} 
                     (${feedback.timestamp}) - Rating: ${feedback.rating} - Category: ${feedback.category}
-                    ${feedback.fileUrl ? `<br><a href="${feedback.fileUrl}" target="_blank">View Uploaded File</a>` : ''}
                 `;
                 feedbackList.appendChild(listItem);
 
