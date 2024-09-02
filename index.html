@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rehab Center Feedback System</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Add Google Charts for analytics visualization -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
    <!-- Header with Website Name -->
@@ -66,6 +64,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Feedback Portal -->
 <div id="feedbackPortal" class="portal">
@@ -127,82 +126,87 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+ 
+
+   
+
     document.addEventListener('DOMContentLoaded', () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token');
-        const validToken = 'zeneSecretToken05';
-        if (token !== validToken) {
-            alert('Unauthorized access.');
-            document.body.innerHTML = '<h1>Unauthorized Access</h1>';
-            return;
-        }
-
-        function switchPortal(showPortalId) {
-            const portals = ['adminPortal', 'feedbackPortal', 'aboutDeveloper'];
-            portals.forEach(portalId => {
-                const portal = document.getElementById(portalId);
-                portal.style.display = (portalId === showPortalId) ? 'block' : 'none';
-            });
-        }
-
-        // Event Listeners to switch between portals
-        document.getElementById("adminPortalButton").addEventListener('click', () => {
-            switchPortal('adminPortal');
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const validToken = 'zeneSecretToken05';
+ if (token !== validToken) {
+        alert('Unauthorized access.');
+        document.body.innerHTML = '<h1>Unauthorized Access</h1>';
+        return;
+    }
+    function switchPortal(showPortalId) {
+        const portals = ['adminPortal', 'feedbackPortal', 'aboutDeveloper'];
+        portals.forEach(portalId => {
+            const portal = document.getElementById(portalId);
+            portal.style.display = (portalId === showPortalId) ? 'block' : 'none';
         });
+    }
 
-        document.getElementById("feedbackPortalButton").addEventListener('click', () => {
-            switchPortal('feedbackPortal');
-        });
+    // Event Listeners to switch between portals
+    document.getElementById("adminPortalButton").addEventListener('click', () => {
+        switchPortal('adminPortal');
+    });
 
-        document.getElementById("aboutDeveloperB").addEventListener('click', () => {
-            switchPortal('aboutDeveloper');
-        });
+    document.getElementById("feedbackPortalButton").addEventListener('click', () => {
+        switchPortal('feedbackPortal');
+    });
 
-        // Load rehab data and analytics
-        document.getElementById("loadRehabDataButton").addEventListener('click', () => {
-            loadFeedback();
-            loadAnalytics();
-        });
+    document.getElementById("aboutDeveloperB").addEventListener('click', () => {
+        switchPortal('aboutDeveloper');
+    });
 
-        // Submit feedback
-        document.getElementById("feedbackForm").addEventListener('submit', async function (e) {
-            e.preventDefault(); // Prevent the form from submitting the traditional way
+    // Load rehab data and analytics
+    document.getElementById("loadRehabDataButton").addEventListener('click', () => {
+        loadFeedback();
+        loadAnalytics();
+    });
 
-            // Retrieve input values
-            const rehabName = document.getElementById("rehabName").value.trim();
-            const patientName = document.getElementById("patientName").value.trim();
-            const feedbackMessage = document.getElementById("feedbackMessage").value.trim();
-            const feedbackCategory = document.getElementById("feedbackCategory").value;
-            const feedbackRating = parseInt(document.getElementById("feedbackRating").value);
-            const anonymous = document.getElementById("anonymousCheckbox").checked;
+    // Submit feedback
+    
+       document.getElementById("feedbackForm").addEventListener('submit', async function (e) {
+    e.preventDefault(); // Prevent the form from submitting the traditional way
 
-            // Check if the required fields are filled
-            if (!rehabName || !feedbackMessage || !feedbackCategory || isNaN(feedbackRating)) {
-                alert("Please fill in all required fields.");
-                return;
-            }
+    // Retrieve input values
+    const rehabName = document.getElementById("rehabName").value.trim();
+    const patientName = document.getElementById("patientName").value.trim();
+    const feedbackMessage = document.getElementById("feedbackMessage").value.trim();
+    const feedbackCategory = document.getElementById("feedbackCategory").value;
+    const feedbackRating = parseInt(document.getElementById("feedbackRating").value);
+    const anonymous = document.getElementById("anonymousCheckbox").checked;
 
-            // Prepare feedback data
-            const feedbackData = {
-                name: anonymous ? "Anonymous" : patientName || "Anonymous", // Default to "Anonymous" if no name provided
-                message: feedbackMessage,
-                category: feedbackCategory,
-                rating: feedbackRating,
-                timestamp: new Date().toISOString() // Store the current date and time as a string
-            };
+    // Check if the required fields are filled
+    if (!rehabName || !feedbackMessage || !feedbackCategory || isNaN(feedbackRating)) {
+        alert("Please fill in all required fields.");
+        return;
+    }
 
-            try {
-                // Save feedback data to Firestore under a collection named 'feedback_{rehabName}'
-                await setDoc(doc(collection(db, `feedback_${rehabName}`)), feedbackData);
-                alert("Feedback submitted successfully!");
+    // Prepare feedback data
+    const feedbackData = {
+        name: anonymous ? "Anonymous" : patientName || "Anonymous", // Default to "Anonymous" if no name provided
+        message: feedbackMessage,
+        category: feedbackCategory,
+        rating: feedbackRating,
+        timestamp: new Date().toISOString() // Store the current date and time as a string
+    };
 
-                // Clear the form after successful submission
-                document.getElementById("feedbackForm").reset();
-            } catch (error) {
-                console.error("Error submitting feedback: ", error);
-                alert("Error submitting feedback. Please try again.");
-            }
-        });
+    try {
+        // Save feedback data to Firestore under a collection named 'feedback_{rehabName}'
+        await setDoc(doc(collection(db, `feedback_${rehabName}`)), feedbackData);
+        alert("Feedback submitted successfully!");
+
+        // Clear the form after successful submission
+        document.getElementById("feedbackForm").reset();
+    } catch (error) {
+        console.error("Error submitting feedback: ", error);
+        alert("Error submitting feedback. Please try again.");
+    }
+});
+
     });
 
     // Function to load all feedback for a given rehab name
@@ -225,10 +229,7 @@
             querySnapshot.forEach((doc) => {
                 const feedback = doc.data();
                 let listItem = document.createElement("div");
-                listItem.innerHTML = `
-                    ${feedback.name ? feedback.name + ': ' : 'Anonymous: '} ${feedback.message} 
-                    (${feedback.timestamp}) - Rating: ${feedback.rating} - Category: ${feedback.category}
-                `;
+                listItem.textContent = `${feedback.name ? feedback.name + ': ' : 'Anonymous: '}${feedback.message} (${feedback.timestamp}) - Rating: ${feedback.rating} - Category: ${feedback.category}`;
                 feedbackList.appendChild(listItem);
 
                 let option = document.createElement("option");
@@ -269,26 +270,6 @@
             let avgRating = count ? (totalRatings / count).toFixed(2) : 0;
             let categoryHtml = Object.entries(categoryCounts).map(([category, count]) => `<p>${category}: ${count}</p>`).join('');
 
-            // Load Google Charts library and draw the chart
-            google.charts.load('current', { packages: ['corechart'] });
-            google.charts.setOnLoadCallback(() => {
-                const data = new google.visualization.DataTable();
-                data.addColumn('string', 'Category');
-                data.addColumn('number', 'Count');
-
-                Object.entries(categoryCounts).forEach(([category, count]) => {
-                    data.addRow([category, count]);
-                });
-
-                const options = {
-                    title: 'Feedback Categories Distribution',
-                    pieHole: 0.4,
-                };
-
-                const chart = new google.visualization.PieChart(document.getElementById('feedbackAnalytics'));
-                chart.draw(data, options);
-            });
-
             feedbackAnalytics.innerHTML = `
                 <h3>Average Rating: ${avgRating}</h3>
                 <h3>Category Counts:</h3>
@@ -318,6 +299,8 @@
             console.error("Error deleting feedback: ", error);
         }
     });
+
+
 </script>
 </body>
 </html>
