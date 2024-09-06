@@ -183,14 +183,14 @@
    
 
     document.addEventListener('DOMContentLoaded', () => {
-    /*const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     const validToken = 'zeneSecretToken05';
  if (token !== validToken) {
         alert('Unauthorized access.');
         document.body.innerHTML = '<h1>Unauthorized Access</h1>';
         return;
-    }*/
+    }
     function switchPortal(showPortalId) {
         const portals = ['adminPortal', 'feedbackPortal', 'aboutDeveloper'];
         portals.forEach(portalId => {
