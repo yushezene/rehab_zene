@@ -7,7 +7,7 @@
 }
 
 body {
-    background: linear-gradient(to right, #f5f5f5, #d6d6d6);
+    background: linear-gradient(to right, #8fa8b6, #d6d6d6);
     color: #333;
     display: flex;
     justify-content: center;
@@ -65,10 +65,13 @@ header h1 {
     width: 90%;
     max-width: 1000px;
     padding: 30px;
-    background-color: #ffffff;
+    background-color: #8f9eac;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+    font-weight: 500;
 }
 
 .portal.active {
@@ -78,35 +81,43 @@ header h1 {
 h2 {
     text-align: center;
     font-size: 2rem;
-    color: #333;
+    color: #ffffff;
     margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+h3{
+color: #030b1d;
+font-size: large;
+font-weight: 700;
 }
 
 .box {
     padding: 20px;
     border-radius: 10px;
     background-color: #f9f9f9;
-    box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 5px 1px 8px rgba(2, 2, 2, 0.1);
     margin-bottom: 20px;
 }
 
 /* Form Styles */
 .form {
     margin-bottom: 30px;
+    font-size: large;
+    font-weight: 500;
 }
 
-.inputbox {
+.inputbox ,.form,.minputbox{
     margin-bottom: 20px;
     position: relative;
 }
 
 .inputbox input, 
 .inputbox textarea, 
-.inputbox select {
+.inputbox select,.form ,.minputbox{
     width: 100%;
     padding: 15px;
-    font-size: 1rem;
-    border: 2px solid #ddd;
+    font-size: 1.1rem;
+    border: 2px solid #2c5071;
     border-radius: 5px;
     transition: border-color 0.3s ease;
     outline: none;
@@ -127,25 +138,82 @@ h2 {
     color: #4b79a1;
     font-weight: bold;
 }
-
+.minputbox{
+background-color: #c0d9f0;
+font-weight: 500;
+letter-spacing: 1px;
+}
 textarea {
     resize: none;
     min-height: 100px;
 }
 
-input[type="submit"] {
+
+input[type="submit"],.sub {
     background-color: #4b79a1;
     color: white;
     border: none;
     padding: 12px 20px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
 input[type="submit"]:hover {
-    background-color: #376088;
+    background-color: #94bce4;
+    color: #283e51;
+}
+/* Additional Styling for Radio Buttons */
+.inputbox label {
+    margin-right: 15px;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Multiple Choice Container */
+.mcq-container {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.mcq-container h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.mcq-container label {
+    display: block;
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.mcq-container input[type="radio"] {
+    margin-right: 10px;
+}
+
+.mcq-container input[type="radio"]:focus {
+    outline: none;
+    border-color: #4b79a1;
+}
+
+/* Separator between MCQ options */
+.mcq-option {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.mcq-option:last-child {
+    border-bottom: none;
 }
 
 /* Admin and Feedback List */
@@ -155,7 +223,7 @@ input[type="submit"]:hover {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #fafafa;
+    background-color: #f9f9f9; 
 }
 
 #feedbackList div {
@@ -168,12 +236,12 @@ input[type="submit"]:hover {
 #feedbackAnalytics {
     padding: 20px;
     border-radius: 10px;
-    background-color: #f0f4f8;
+    background-color: #f9f9f9; 
 }
 
 #feedbackAnalytics h3 {
     margin-top: 20px;
-    color: #555;
+    color: #333;
 }
 
 #feedbackAnalytics p {
@@ -183,7 +251,7 @@ input[type="submit"]:hover {
 
 /* Delete Button */
 #deleteFeedbackButton {
-    background-color: #e74c3c;
+    background-color: #c25447;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -222,7 +290,8 @@ input[type="radio"] {
 .portal {
     margin-bottom: 50px; /* Add margin to prevent overlapping */
 }
-.z{
+
+.z {
     background-color: #376088;
     font-size: x-large;
     font-weight: 700;
@@ -230,6 +299,7 @@ input[type="radio"] {
     color: #ffffff;
     border-radius: 5px;
 }
+
 .mcq-container h3 {
     font-size: 1.5rem;
     color: #333;
