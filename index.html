@@ -74,11 +74,19 @@
             <h3>Submit Feedback</h3>
             <form id="feedbackForm">
                 <div class="inputbox">
+                    <select id="feedbackType" required>
+                        <option value="">Select Feedback Type</option>
+                        <option value="patient">Patient</option>
+                        <option value="family">Family Member</option>
+                    </select>
+                    <span>Feedback Type</span>
+                </div>
+                <div class="inputbox">
                     <input type="text" id="rehabName" placeholder="Rehab Name" required>
                     <span>Rehab Name</span>
                 </div>
                 <div class="inputbox">
-                    <input type="text" id="patientName" placeholder="Your Name (optional)">
+                    <input type="text" id="personName" placeholder="Your Name (optional)">
                     <span>Your Name</span>
                 </div>
                 <div class="inputbox">
@@ -100,6 +108,27 @@
                 </div>
                 <div class="inputbox">
                     <label><input type="checkbox" id="anonymousCheckbox"> Submit Anonymously</label>
+                </div>
+                <!-- MCQs Section -->
+                <div class="inputbox">
+                    <p>How satisfied are you with the service?</p>
+                    <label><input type="radio" name="serviceSatisfaction" value="Very Satisfied" required> Very Satisfied</label>
+                    <label><input type="radio" name="serviceSatisfaction" value="Satisfied"> Satisfied</label>
+                    <label><input type="radio" name="serviceSatisfaction" value="Neutral"> Neutral</label>
+                    <label><input type="radio" name="serviceSatisfaction" value="Dissatisfied"> Dissatisfied</label>
+                    <label><input type="radio" name="serviceSatisfaction" value="Very Dissatisfied"> Very Dissatisfied</label>
+                </div>
+                <div class="inputbox">
+                    <p>Would you recommend this rehab center to others?</p>
+                    <label><input type="radio" name="recommendation" value="Yes" required> Yes</label>
+                    <label><input type="radio" name="recommendation" value="No"> No</label>
+                </div>
+                <div class="inputbox">
+                    <p>How would you rate the quality of the facilities?</p>
+                    <label><input type="radio" name="facilityQuality" value="Excellent" required> Excellent</label>
+                    <label><input type="radio" name="facilityQuality" value="Good"> Good</label>
+                    <label><input type="radio" name="facilityQuality" value="Average"> Average</label>
+                    <label><input type="radio" name="facilityQuality" value="Poor"> Poor</label>
                 </div>
                 <input type="submit" value="Submit Feedback" class="sub" id="submitFeedbackButton">
             </form>
@@ -131,14 +160,14 @@
    
 
     document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
+    /*const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     const validToken = 'zeneSecretToken05';
  if (token !== validToken) {
         alert('Unauthorized access.');
         document.body.innerHTML = '<h1>Unauthorized Access</h1>';
         return;
-    }
+    }*/
     function switchPortal(showPortalId) {
         const portals = ['adminPortal', 'feedbackPortal', 'aboutDeveloper'];
         portals.forEach(portalId => {
@@ -168,29 +197,39 @@
 
     // Submit feedback
     
-       document.getElementById("feedbackForm").addEventListener('submit', async function (e) {
+    document.getElementById("feedbackForm").addEventListener('submit', async function (e) {
     e.preventDefault(); // Prevent the form from submitting the traditional way
 
     // Retrieve input values
+    const feedbackType = document.getElementById("feedbackType").value;
     const rehabName = document.getElementById("rehabName").value.trim();
-    const patientName = document.getElementById("patientName").value.trim();
+    const personName = document.getElementById("personName").value.trim();
     const feedbackMessage = document.getElementById("feedbackMessage").value.trim();
     const feedbackCategory = document.getElementById("feedbackCategory").value;
     const feedbackRating = parseInt(document.getElementById("feedbackRating").value);
     const anonymous = document.getElementById("anonymousCheckbox").checked;
+    
+    // Retrieve MCQ responses
+    const serviceSatisfaction = document.querySelector('input[name="serviceSatisfaction"]:checked')?.value || "Not Provided";
+    const recommendation = document.querySelector('input[name="recommendation"]:checked')?.value || "Not Provided";
+    const facilityQuality = document.querySelector('input[name="facilityQuality"]:checked')?.value || "Not Provided";
 
     // Check if the required fields are filled
-    if (!rehabName || !feedbackMessage || !feedbackCategory || isNaN(feedbackRating)) {
+    if (!feedbackType || !rehabName || !feedbackMessage || !feedbackCategory || isNaN(feedbackRating)) {
         alert("Please fill in all required fields.");
         return;
     }
 
     // Prepare feedback data
     const feedbackData = {
-        name: anonymous ? "Anonymous" : patientName || "Anonymous", // Default to "Anonymous" if no name provided
+        type: feedbackType, // Add feedback type
+        name: anonymous ? "Anonymous" : personName || "Anonymous", // Default to "Anonymous" if no name provided
         message: feedbackMessage,
         category: feedbackCategory,
         rating: feedbackRating,
+        serviceSatisfaction: serviceSatisfaction,
+        recommendation: recommendation,
+        facilityQuality: facilityQuality,
         timestamp: new Date().toISOString() // Store the current date and time as a string
     };
 
@@ -206,6 +245,7 @@
         alert("Error submitting feedback. Please try again.");
     }
 });
+
 
     });
 
@@ -243,42 +283,58 @@
     }
 
     // Function to load analytics data
-    async function loadAnalytics() {
-        const feedbackAnalytics = document.getElementById("feedbackAnalytics");
-        const rehabName = document.getElementById("adminRehabName").value.trim();
+    // Function to load analytics data
+async function loadAnalytics() {
+    const feedbackAnalytics = document.getElementById("feedbackAnalytics");
+    const rehabName = document.getElementById("adminRehabName").value.trim();
 
-        if (!rehabName) {
-            alert('Please enter a rehab name to load analytics');
-            return;
-        }
-
-        try {
-            const q = query(collection(db, `feedback_${rehabName}`));
-            const querySnapshot = await getDocs(q);
-
-            let totalRatings = 0;
-            let count = 0;
-            let categoryCounts = {};
-
-            querySnapshot.forEach((doc) => {
-                const feedback = doc.data();
-                totalRatings += feedback.rating;
-                count++;
-                categoryCounts[feedback.category] = (categoryCounts[feedback.category] || 0) + 1;
-            });
-
-            let avgRating = count ? (totalRatings / count).toFixed(2) : 0;
-            let categoryHtml = Object.entries(categoryCounts).map(([category, count]) => `<p>${category}: ${count}</p>`).join('');
-
-            feedbackAnalytics.innerHTML = `
-                <h3>Average Rating: ${avgRating}</h3>
-                <h3>Category Counts:</h3>
-                ${categoryHtml}
-            `;
-        } catch (error) {
-            console.error("Error loading analytics: ", error);
-        }
+    if (!rehabName) {
+        alert('Please enter a rehab name to load analytics');
+        return;
     }
+
+    try {
+        const q = query(collection(db, `feedback_${rehabName}`));
+        const querySnapshot = await getDocs(q);
+
+        let totalRatings = 0;
+        let count = 0;
+        let categoryCounts = {};
+        let serviceSatisfactionCounts = {};
+        let recommendationCounts = {};
+        let facilityQualityCounts = {};
+
+        querySnapshot.forEach((doc) => {
+            const feedback = doc.data();
+            totalRatings += feedback.rating;
+            count++;
+            categoryCounts[feedback.category] = (categoryCounts[feedback.category] || 0) + 1;
+            serviceSatisfactionCounts[feedback.serviceSatisfaction] = (serviceSatisfactionCounts[feedback.serviceSatisfaction] || 0) + 1;
+            recommendationCounts[feedback.recommendation] = (recommendationCounts[feedback.recommendation] || 0) + 1;
+            facilityQualityCounts[feedback.facilityQuality] = (facilityQualityCounts[feedback.facilityQuality] || 0) + 1;
+        });
+
+        let avgRating = count ? (totalRatings / count).toFixed(2) : 0;
+        let categoryHtml = Object.entries(categoryCounts).map(([category, count]) => `<p>${category}: ${count}</p>`).join('');
+        let serviceSatisfactionHtml = Object.entries(serviceSatisfactionCounts).map(([satisfaction, count]) => `<p>${satisfaction}: ${count}</p>`).join('');
+        let recommendationHtml = Object.entries(recommendationCounts).map(([recommendation, count]) => `<p>${recommendation}: ${count}</p>`).join('');
+        let facilityQualityHtml = Object.entries(facilityQualityCounts).map(([quality, count]) => `<p>${quality}: ${count}</p>`).join('');
+
+        feedbackAnalytics.innerHTML = `
+            <h3>Average Rating: ${avgRating}</h3>
+            <h3>Category Counts:</h3>
+            ${categoryHtml}
+            <h3>Service Satisfaction:</h3>
+            ${serviceSatisfactionHtml}
+            <h3>Recommendation:</h3>
+            ${recommendationHtml}
+            <h3>Facility Quality:</h3>
+            ${facilityQualityHtml}
+        `;
+    } catch (error) {
+        console.error("Error loading analytics: ", error);
+    }
+}
 
     // Deleting feedback
     document.getElementById("deleteFeedbackButton").addEventListener('click', async function (e) {
@@ -304,3 +360,4 @@
 </script>
 </body>
 </html>
+ 
