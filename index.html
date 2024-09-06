@@ -71,7 +71,7 @@
     <h2>Feedback Portal</h2>
     <div class="box">
         <div class="form">
-            <h3>Submit Feedback</h3>
+            <h3 class ="z">Submit Feedback</h3>
             <form id="feedbackForm">
                 <div class="inputbox">
                     <select id="feedbackType" required>
@@ -106,30 +106,53 @@
                     <label>Rating:</label>
                     <input type="number" id="feedbackRating" min="1" max="5" required>
                 </div>
-                <div class="inputbox">
+                <div class="minputbox">
                     <label><input type="checkbox" id="anonymousCheckbox"> Submit Anonymously</label>
                 </div>
                 <!-- MCQs Section -->
-                <div class="inputbox">
-                    <p>How satisfied are you with the service?</p>
-                    <label><input type="radio" name="serviceSatisfaction" value="Very Satisfied" required> Very Satisfied</label>
-                    <label><input type="radio" name="serviceSatisfaction" value="Satisfied"> Satisfied</label>
-                    <label><input type="radio" name="serviceSatisfaction" value="Neutral"> Neutral</label>
-                    <label><input type="radio" name="serviceSatisfaction" value="Dissatisfied"> Dissatisfied</label>
-                    <label><input type="radio" name="serviceSatisfaction" value="Very Dissatisfied"> Very Dissatisfied</label>
-                </div>
-                <div class="inputbox">
-                    <p>Would you recommend this rehab center to others?</p>
-                    <label><input type="radio" name="recommendation" value="Yes" required> Yes</label>
-                    <label><input type="radio" name="recommendation" value="No"> No</label>
-                </div>
-                <div class="inputbox">
-                    <p>How would you rate the quality of the facilities?</p>
-                    <label><input type="radio" name="facilityQuality" value="Excellent" required> Excellent</label>
-                    <label><input type="radio" name="facilityQuality" value="Good"> Good</label>
-                    <label><input type="radio" name="facilityQuality" value="Average"> Average</label>
-                    <label><input type="radio" name="facilityQuality" value="Poor"> Poor</label>
-                </div>
+<div class="minputbox">
+    <p>How satisfied are you with the service?</p>
+    <div class="mcq-option">
+        <label><input type="radio" name="serviceSatisfaction" value="Very Satisfied" required> Very Satisfied</label>
+    </div>
+    <div class="mcq-option">
+        <label><input type="radio" name="serviceSatisfaction" value="Satisfied"> Satisfied</label>
+    </div>
+    <div class="mcq-option">
+        <label><input type="radio" name="serviceSatisfaction" value="Neutral"> Neutral</label>
+    </div>
+    <div class="mcq-option">
+        <label><input type="radio" name="serviceSatisfaction" value="Dissatisfied"> Dissatisfied</label>
+    </div>
+    <div class="mcq-option">
+        <label><input type="radio" name="serviceSatisfaction" value="Very Dissatisfied"> Very Dissatisfied</label>
+    </div>
+</div>
+<div class="minputbox">
+    <p>Would you recommend this rehab center to others?</p>
+    <div class="mcq-option">
+        <label><input type="radio" name="recommendation" value="Yes" required> Yes</label>
+    </div>
+    <div class="mcq-option">
+        <label><input type="radio" name="recommendation" value="No"> No</label>
+    </div>
+</div>
+<div class="minputbox">
+    <p>How would you rate the quality of the facilities?</p>
+    <div class="mcq-option">
+        <label><input type="radio" name="facilityQuality" value="Excellent" required> Excellent</label>
+    </div>
+    <div class="mcq-option">
+        <label><input type="radio" name="facilityQuality" value="Good"> Good</label>
+    </div>
+    <div class="mcq-option">
+        <label><input type="radio" name="facilityQuality" value="Average"> Average</label>
+    </div>
+    <div class="mcq-option">
+        <label><input type="radio" name="facilityQuality" value="Poor"> Poor</label>
+    </div>
+</div>
+
                 <input type="submit" value="Submit Feedback" class="sub" id="submitFeedbackButton">
             </form>
         </div>
