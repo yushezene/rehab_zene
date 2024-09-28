@@ -149,7 +149,7 @@ textarea {
 }
 
 
-input[type="submit"],.sub {
+input[type="submit"],.sub,#toggleLanguage{
     background-color: #4b79a1;
     color: white;
     border: none;
@@ -320,4 +320,9 @@ input[type="radio"] {
 .mcq-container input[type="radio"]:focus {
     outline: none;
     border-color: #4b79a1;
+}
+
+.faq-box{
+    font-size: large;
+    color: rgb(39, 39, 39);
 }
