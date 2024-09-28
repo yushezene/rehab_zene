@@ -206,6 +206,8 @@
         document.body.innerHTML = '<h1>Unauthorized Access</h1>';
         return;
     }
+       
+loadFeedback();
     function switchLanguage() {
                 const isEnglish = document.getElementById("toggleLanguage").innerText === "Switch to Hindi";
                 document.getElementById("websiteTitle").innerText = isEnglish ? "रिहैब कनेक्ट" : "Rehab Connect";
