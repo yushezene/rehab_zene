@@ -9,7 +9,11 @@
 <body>
    <!-- Header with Website Name -->
    <header>
-    <h1>Rehab Connect</h1>
+    <h1 id="websiteTitle">Rehab Connect</h1>
+    <!-- Language Toggle Button -->
+    <div>
+        <button id="toggleLanguage">Switch to Hindi</button>
+    </div>
 </header>
 
 <div class="nav">
@@ -20,7 +24,7 @@
 
 <!-- About the Developer Section -->
 <div id="aboutDeveloper" class="portal">
-    <h2>About the Developer</h2>
+    <h2 id="aboutTitle">About the Developer</h2>
     <div class="box">
         <p>
             Hi, I'm <strong>Zene Ansari</strong>, the creator of this Rehab Center Feedback System. 
@@ -33,25 +37,45 @@
             Thank you for using this system and supporting better healthcare services!
         </p>
     </div>
+
+    <!-- FAQs Section -->
+    <h3>Frequently Asked Questions (FAQs)</h3><br><br>
+    <div class="faq-box">
+        <div class="faq-item">
+            <h4>Q1: How can I provide feedback?</h4>
+            <p>A: You can provide feedback through the Feedback Portal by filling out the feedback form.</p><br>
+        </div>
+        <div class="faq-item">
+            <h4>Q2: Is my feedback anonymous?</h4>
+            <p>A: Yes, you can choose to submit your feedback anonymously by checking the respective checkbox on the feedback form.</p><br>
+        </div>
+        <div class="faq-item">
+            <h4>Q3: What types of feedback can I submit?</h4>
+            <p>A: You can submit feedback regarding services, staff, and facilities, among others.</p><br>
+        </div>
+        <div class="faq-item">
+            <h4>Q4: Can family members submit feedback on behalf of patients?</h4>
+            <p>A: Yes, family members can submit feedback on behalf of patients using the Feedback Portal.</p><br>
+        </div>
+    </div>
 </div>
 
 <!-- Admin Portal -->
 <div id="adminPortal" class="portal">
-    <h2>Admin Portal</h2>
+    <h2 id="enterRehabTitle">Enter Rehab Name to View Data</h2>
     <div class="box">
         <div class="form">
-            <h3>Enter Rehab Name to View Data</h3>
             <input type="text" id="adminRehabName" placeholder="Enter Rehab Name" required>
             <button id="loadRehabDataButton" class="sub">Load Data</button>
         </div>
         <div class="form">
-            <h3>View Feedback</h3>
+            <h3 id="viewFeedbackTitle">View Feedback</h3>
             <button id="viewFeedbackButton" class="sub">View Feedback</button>
             <div id="feedbackList"></div>
         </div>
 
         <div class="form">
-            <h3>Manage Feedback</h3>
+            <h3 id="manageFeedbackTitle">Manage Feedback</h3>
             <select id="feedbackSelect">
                 <option value="">Select Feedback to Delete</option>
             </select>
@@ -59,19 +83,17 @@
         </div>
 
         <div class="form">
-            <h3>Feedback Analytics</h3>
+            <h3 id="analyticsTitle">Feedback Analytics</h3>
             <div id="feedbackAnalytics"></div>
         </div>
     </div>
 </div>
 
-
 <!-- Feedback Portal -->
 <div id="feedbackPortal" class="portal">
-    <h2>Feedback Portal</h2>
+    <h2 id="submitFeedbackTitle">Submit Feedback</h2>
     <div class="box">
         <div class="form">
-            <h3 class ="z">Submit Feedback</h3>
             <form id="feedbackForm">
                 <div class="inputbox">
                     <select id="feedbackType" required>
@@ -79,19 +101,19 @@
                         <option value="patient">Patient</option>
                         <option value="family">Family Member</option>
                     </select>
-                    <span>Feedback Type</span>
+                    <span id="feedbackTypeLabel">Feedback Type</span>
                 </div>
                 <div class="inputbox">
                     <input type="text" id="rehabName" placeholder="Rehab Name" required>
-                    <span>Rehab Name</span>
+                    <span id="rehabNameLabel">Rehab Name</span>
                 </div>
                 <div class="inputbox">
                     <input type="text" id="personName" placeholder="Your Name (optional)">
-                    <span>Your Name</span>
+                    <span id="personNameLabel">Your Name</span>
                 </div>
                 <div class="inputbox">
                     <textarea id="feedbackMessage" required></textarea>
-                    <span>Your Feedback</span>
+                    <span id="feedbackMessageLabel">Your Feedback</span>
                 </div>
                 <div class="inputbox">
                     <select id="feedbackCategory" required>
@@ -100,65 +122,64 @@
                         <option value="staff">Staff</option>
                         <option value="facilities">Facilities</option>
                     </select>
-                    <span>Category</span>
+                    <span id="feedbackCategoryLabel">Category</span>
                 </div>
                 <div class="inputbox">
-                    <label>Rating:</label>
+                    <label id="ratingLabel">Rating:</label>
                     <input type="number" id="feedbackRating" min="1" max="5" required>
                 </div>
                 <div class="minputbox">
-                    <label><input type="checkbox" id="anonymousCheckbox"> Submit Anonymously</label>
+                    <label><input type="checkbox" id="anonymousCheckbox"> <span id="anonymousLabel">Submit Anonymously</span></label>
                 </div>
                 <!-- MCQs Section -->
-<div class="minputbox">
-    <p>How satisfied are you with the service?</p>
-    <div class="mcq-option">
-        <label><input type="radio" name="serviceSatisfaction" value="Very Satisfied" required> Very Satisfied</label>
-    </div>
-    <div class="mcq-option">
-        <label><input type="radio" name="serviceSatisfaction" value="Satisfied"> Satisfied</label>
-    </div>
-    <div class="mcq-option">
-        <label><input type="radio" name="serviceSatisfaction" value="Neutral"> Neutral</label>
-    </div>
-    <div class="mcq-option">
-        <label><input type="radio" name="serviceSatisfaction" value="Dissatisfied"> Dissatisfied</label>
-    </div>
-    <div class="mcq-option">
-        <label><input type="radio" name="serviceSatisfaction" value="Very Dissatisfied"> Very Dissatisfied</label>
-    </div>
-</div>
-<div class="minputbox">
-    <p>Would you recommend this rehab center to others?</p>
-    <div class="mcq-option">
-        <label><input type="radio" name="recommendation" value="Yes" required> Yes</label>
-    </div>
-    <div class="mcq-option">
-        <label><input type="radio" name="recommendation" value="No"> No</label>
-    </div>
-</div>
-<div class="minputbox">
-    <p>How would you rate the quality of the facilities?</p>
-    <div class="mcq-option">
-        <label><input type="radio" name="facilityQuality" value="Excellent" required> Excellent</label>
-    </div>
-    <div class="mcq-option">
-        <label><input type="radio" name="facilityQuality" value="Good"> Good</label>
-    </div>
-    <div class="mcq-option">
-        <label><input type="radio" name="facilityQuality" value="Average"> Average</label>
-    </div>
-    <div class="mcq-option">
-        <label><input type="radio" name="facilityQuality" value="Poor"> Poor</label>
-    </div>
-</div>
+                <div class="minputbox">
+                    <p id="serviceSatisfactionLabel">How satisfied are you with the service?</p>
+                    <div class="mcq-option">
+                        <label><input type="radio" name="serviceSatisfaction" value="Very Satisfied" required> Very Satisfied</label>
+                    </div>
+                    <div class="mcq-option">
+                        <label><input type="radio" name="serviceSatisfaction" value="Satisfied"> Satisfied</label>
+                    </div>
+                    <div class="mcq-option">
+                        <label><input type="radio" name="serviceSatisfaction" value="Neutral"> Neutral</label>
+                    </div>
+                    <div class="mcq-option">
+                        <label><input type="radio" name="serviceSatisfaction" value="Dissatisfied"> Dissatisfied</label>
+                    </div>
+                    <div class="mcq-option">
+                        <label><input type="radio" name="serviceSatisfaction" value="Very Dissatisfied"> Very Dissatisfied</label>
+                    </div>
+                </div>
+                <div class="minputbox">
+                    <p id="recommendationLabel">Would you recommend this rehab center to others?</p>
+                    <div class="mcq-option">
+                        <label><input type="radio" name="recommendation" value="Yes" required> Yes</label>
+                    </div>
+                    <div class="mcq-option">
+                        <label><input type="radio" name="recommendation" value="No"> No</label>
+                    </div>
+                </div>
+                <div class="minputbox">
+                    <p id="facilityQualityLabel">How would you rate the quality of the facilities?</p>
+                    <div class="mcq-option">
+                        <label><input type="radio" name="facilityQuality" value="Excellent" required> Excellent</label>
+                    </div>
+                    <div class="mcq-option">
+                        <label><input type="radio" name="facilityQuality" value="Good"> Good</label>
+                    </div>
+                    <div class="mcq-option">
+                        <label><input type="radio" name="facilityQuality" value="Average"> Average</label>
+                    </div>
+                    <div class="mcq-option">
+                        <label><input type="radio" name="facilityQuality" value="Poor"> Poor</label>
+                    </div>
+                </div>
 
                 <input type="submit" value="Submit Feedback" class="sub" id="submitFeedbackButton">
             </form>
         </div>
     </div>
 </div>
-
 <!-- React and Firebase Integration -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
@@ -173,24 +194,46 @@
         appId: "1:889479890648:web:38a68a3551a1f05750f9ad",
         measurementId: "G-GQ04FHMMF8"
     };
-
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
- 
-
-   
-
     document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
+    /*const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     const validToken = 'zeneSecretToken05';
  if (token !== validToken) {
         alert('Unauthorized access.');
         document.body.innerHTML = '<h1>Unauthorized Access</h1>';
         return;
-    }
+    }*/
+    function switchLanguage() {
+                const isEnglish = document.getElementById("toggleLanguage").innerText === "Switch to Hindi";
+                document.getElementById("websiteTitle").innerText = isEnglish ? "रिहैब कनेक्ट" : "Rehab Connect";
+                document.getElementById("aboutTitle").innerText = isEnglish ? "डेवलपर के बारे में" : "About the Developer";
+                document.getElementById("submitFeedbackTitle").innerText = isEnglish ? "फीडबैक सबमिट करें" : "Submit Feedback";
+                document.getElementById("enterRehabTitle").innerText = isEnglish ? "डेटा देखने के लिए रिहैब नाम दर्ज करें" : "Enter Rehab Name to View Data";
+                document.getElementById("viewFeedbackTitle").innerText = isEnglish ? "फीडबैक देखें" : "View Feedback";
+                document.getElementById("manageFeedbackTitle").innerText = isEnglish ? "फीडबैक प्रबंधित करें" : "Manage Feedback";
+                document.getElementById("analyticsTitle").innerText = isEnglish ? "फीडबैक एनालिटिक्स" : "Feedback Analytics";
+                document.getElementById("feedbackTypeLabel").innerText = isEnglish ? "फीडबैक प्रकार" : "Feedback Type";
+                document.getElementById("rehabNameLabel").innerText = isEnglish ? "रिहैब नाम" : "Rehab Name";
+                document.getElementById("personNameLabel").innerText = isEnglish ? "आपका नाम" : "Your Name";
+                document.getElementById("feedbackMessageLabel").innerText = isEnglish ? "आपकी फीडबैक" : "Your Feedback";
+                document.getElementById("feedbackCategoryLabel").innerText = isEnglish ? "श्रेणी" : "Category";
+                document.getElementById("ratingLabel").innerText = isEnglish ? "रेटिंग:" : "Rating:";
+                document.getElementById("anonymousLabel").innerText = isEnglish ? "गुमनाम तरीके से सबमिट करें" : "Submit Anonymously";
+                document.getElementById("serviceSatisfactionLabel").innerText = isEnglish ? "सेवा से संतोषजनकता" : "Service Satisfaction";
+                document.getElementById("recommendationLabel").innerText = isEnglish ? "अन्य को सिफारिश करेंगे?" : "Would you recommend this rehab center to others?";
+                document.getElementById("facilityQualityLabel").innerText = isEnglish ? "सुविधाओं की गुणवत्ता" : "Facility Quality";
+                document.getElementById("toggleLanguage").innerText = isEnglish ? "Switch to English" : "Switch to Hindi";
+            }
+
+            // Event listener for language toggle button
+            document.getElementById("toggleLanguage").addEventListener('click', switchLanguage);
+
+            // Initialize language
+            switchLanguage();
+    
     function switchPortal(showPortalId) {
         const portals = ['adminPortal', 'feedbackPortal', 'aboutDeveloper'];
         portals.forEach(portalId => {
@@ -290,15 +333,23 @@
             const querySnapshot = await getDocs(q);
 
             querySnapshot.forEach((doc) => {
-                const feedback = doc.data();
-                let listItem = document.createElement("div");
-                listItem.textContent = `${feedback.name ? feedback.name + ': ' : 'Anonymous: '}${feedback.message} (${feedback.timestamp}) - Rating: ${feedback.rating} - Category: ${feedback.category}`;
-                feedbackList.appendChild(listItem);
+    const feedback = doc.data();
+    let listItem = document.createElement("div");
+    listItem.textContent = `
+        ${feedback.name ? feedback.name + ': ' : 'Anonymous: '}
+        ${feedback.message} 
+        (${new Date(feedback.timestamp).toLocaleString()}) 
+        --- Rating: ${feedback.rating} 
+        --- Category: ${feedback.category} 
+        --- Type: ${feedback.type}`; // Include feedback type here
+    feedbackList.appendChild(listItem);
 
-                let option = document.createElement("option");
-                option.value = doc.id;
-                option.textContent = feedback.message.substring(0, 50) + '...';
-                feedbackSelect.appendChild(option);
+    let option = document.createElement("option");
+    option.value = doc.id;
+    option.textContent = `${feedback.type === 'patient' ? 'Patient: ' : 'Family: '}${feedback.message.substring(0, 50)}...`; // Show feedback type in the dropdown
+    feedbackSelect.appendChild(option);
+
+
             });
         } catch (error) {
             console.error("Error loading feedback: ", error);
@@ -306,7 +357,7 @@
     }
 
     // Function to load analytics data
-    // Function to load analytics data
+    
 async function loadAnalytics() {
     const feedbackAnalytics = document.getElementById("feedbackAnalytics");
     const rehabName = document.getElementById("adminRehabName").value.trim();
@@ -377,8 +428,8 @@ async function loadAnalytics() {
         } catch (error) {
             console.error("Error deleting feedback: ", error);
         }
+        
     });
-
 
 </script>
 </body>
