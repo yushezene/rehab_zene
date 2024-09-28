@@ -198,16 +198,15 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
+        
+    /*const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
     const validToken = 'zeneSecretToken05';
  if (token !== validToken) {
         alert('Unauthorized access.');
         document.body.innerHTML = '<h1>Unauthorized Access</h1>';
         return;
-    }
-       
-loadFeedback();
+    }*/
     function switchLanguage() {
                 const isEnglish = document.getElementById("toggleLanguage").innerText === "Switch to Hindi";
                 document.getElementById("websiteTitle").innerText = isEnglish ? "रिहैब कनेक्ट" : "Rehab Connect";
