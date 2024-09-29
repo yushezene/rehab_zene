@@ -15,7 +15,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
     padding: 20px;
-    overflow-x: hidden; /* Avoid horizontal overflow */
+    overflow-x: hidden; 
 }
 
 /* Header */
@@ -27,7 +27,7 @@ header {
     text-align: center;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    margin-bottom: 40px; /* Added margin to separate from other elements */
+    margin-bottom: 40px; 
 }
 
 header h1 {
@@ -164,7 +164,7 @@ input[type="submit"]:hover {
     background-color: #94bce4;
     color: #283e51;
 }
-/* Additional Styling for Radio Buttons */
+
 .inputbox label {
     margin-right: 15px;
 }
@@ -265,7 +265,6 @@ input[type="radio"] {
     background-color: #c0392b;
 }
 
-/* Additional Styling for Radio Buttons */
 .inputbox label {
     margin-right: 15px;
 }
@@ -284,11 +283,11 @@ input[type="radio"] {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Ensure the containers do not overlap */
+
 .mcq-container,
 .box,
 .portal {
-    margin-bottom: 50px; /* Add margin to prevent overlapping */
+    margin-bottom: 50px; 
 }
 
 .z {
